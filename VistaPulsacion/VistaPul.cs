@@ -6,13 +6,13 @@ namespace VistaPulsacion
 {
     public partial class VistaPul : Form
     {
-        private readonly persona Personaservice;
+        private readonly Persona Personaservice;
        
 
         public VistaPul()
         {
             InitializeComponent();
-            Personaservice = new persona();
+            Personaservice = new Persona();
         }
 
         private void ButtonCalcular_Click(object sender, EventArgs e)
@@ -25,7 +25,7 @@ namespace VistaPulsacion
         {
             if (ValidarTextosVacios()) 
             {
-                persona persona = MapearTextoAPersona();
+                Persona persona = MapearTextoAPersona();
                 decimal resultado = Personaservice.CalcularPulsacion(persona);
                 TextBoxPulsaciones.Text = resultado.ToString();
                 return "Pulsaciones calculadas correctamente.";
@@ -37,9 +37,9 @@ namespace VistaPulsacion
             }
         
         }
-        private persona MapearTextoAPersona()
+        private Persona MapearTextoAPersona()
         {
-            var persona = new persona();
+            var persona = new Persona();
             persona.Edad = int.Parse(TextBoxEdad.Text);
             persona.Sexo = MapearComboASexo(ComboBoxSexo.Text);
             persona.CalcularPulsacion(persona); 
@@ -49,14 +49,7 @@ namespace VistaPulsacion
 
         private string MapearComboASexo(string sexo)
         {
-            if (sexo.Equals("Femenino"))
-            {
-                return "F";
-            }
-            else
-            {
-                return "M";
-            }
+            return sexo.Equals("Femenino") ? "F" : "M";
         }
         private bool ValidarTextosVacios()
         {
